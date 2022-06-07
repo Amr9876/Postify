@@ -1,0 +1,37 @@
+﻿@page "/post/remove/{Id}"
+@inject PostsService Posts
+@inject NavigationManager NavManager
+
+<center class="p-5">
+
+    <div class="shadow bg-dark mt-3 p-3">
+
+        <h2 class="mb-5">Are you sure you want to delete this post?</h2>
+
+        <div class="row">
+
+            <div class="col-6">
+                <button @onclick="Remove" class="btn btn-outline-danger">Confirm</button>
+            </div>
+
+            <div class="col-6">
+                <a href="/" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</center>
+
+@code {
+    [Parameter] public string Id { get; set; } = string.Empty;
+
+    async Task Remove()
+    {
+        await Posts.RemovePostAsync(Id);
+
+        NavManager.NavigateTo("/");
+    }
+
+}

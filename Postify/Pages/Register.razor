@@ -1,0 +1,28 @@
+@page "/signup"
+@layout AuthenticationLayout
+
+<center>
+
+    <div class="w-50">
+
+        <AuthorizeView>
+
+            <Authorized>
+
+                <div class="alert alert-danger" role="alert">Your arleady logged in!</div>
+
+            </Authorized>
+
+            <NotAuthorized>
+
+                <h1>Sign Up</h1>
+
+                <Form FormType="FormType.SignUp" />
+
+            </NotAuthorized>
+
+        </AuthorizeView>
+
+    </div>
+
+</center>

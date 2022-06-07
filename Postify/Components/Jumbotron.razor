@@ -1,0 +1,22 @@
+<div class="d-flex justify-content-start">
+    <div class="row me-auto">
+        <div class="col-3">
+            <Avatar Letter="@UserName.Substring(0, 1)" />
+        </div>
+        <div class="col-9">
+            <h4 class="ms-3 mt-4">Welcome, @UserName</h4>
+        </div>
+    </div>
+    <div class="mt-2">
+        <a class="btn btn-outline-primary me-3" href="/myposts/@Id" style="width:7rem;height:3rem;font-size:1.2rem;">My Posts</a>
+        <a class="btn btn-outline-success" href="/post/add" style="width:7rem;height:3rem;font-size:1.5rem;">Add</a>
+    </div>
+</div>
+
+@code {
+
+    [Parameter] public string UserName { get; set; } = string.Empty;
+
+    [Parameter] public string Id { get; set; } = string.Empty;
+
+}

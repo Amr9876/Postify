@@ -1,0 +1,29 @@
+﻿@page "/comment/add/{Id}"
+
+<center class="p-5">
+    <EditForm Model="request" OnValidSubmit="SubmitHandler">
+
+        <DataAnnotationsValidator />
+
+        <div class="mb-3">
+
+            <div class="d-flex justify-content-start">
+                <label class="form-label">Content</label>
+            </div>
+
+            <InputTextArea class="form-control" @bind-Value="request.Body" />
+
+            <div class="d-flex justify-content-start">
+                <ValidationMessage For="() => request.Body" />
+            </div>
+
+        </div>
+
+        <div class="mb-3 d-flex justify-content-start">
+
+            <button type="submit" class="btn btn-outline-primary w-25">Add</button>
+
+        </div>
+
+    </EditForm>
+</center>

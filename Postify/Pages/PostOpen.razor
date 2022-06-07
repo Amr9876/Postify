@@ -1,0 +1,77 @@
+﻿@page "/post/open/{Id}"
+
+<center class="p-5">
+
+    <div class="shadow bg-dark p-3">
+
+        <div class="d-flex justify-content-start mb-5 p-3">
+
+            <div class="row">
+                <div class="col-4">
+                    @if(!string.IsNullOrEmpty(postItem.Creator))
+                    {
+                        <Avatar Letter="@postItem.Creator.Substring(0, 1)" />
+                    }
+                </div>
+
+                <div class="col-8">
+                    <h4 class="mt-3 ms-3">@creatorName</h4>
+                    <p class="mt-2 me-3" style="opacity:0.6;">@postItem.Date</p>
+                </div>
+            </div>
+        </div>
+
+        <div>
+
+            <div class="d-flex justify-content-start p-3">
+                <h2 class="mb-2">@postItem.Title</h2>
+            </div>
+
+            <img src="@postItem.ImageUrl" style="width: 100%; height: 30rem;" />
+
+        </div>
+
+        <div class="mt-3">
+
+            <h4>@postItem.Description</h4>
+
+        </div>
+
+        <div class="mt-4 d-flex justify-content-start">
+
+            <a href="/comment/add/@postItem.Id" class="btn btn-outline-primary">Add Comment</a>
+
+        </div>
+
+    </div>
+
+    @if (comments.Count > 0)
+    {
+        <div class="shadow bg-secondary d-flex flex-column justify-content-start mt-4 p-3">
+            <Virtualize Items="comments" Context="comment">
+
+                <div class="shadow bg-dark rounded p-3 w-50 mb-4">
+
+                    <div class="d-flex justify-content-start p-1">
+
+                        <Avatar Letter="@comment.Creator.Substring(0, 1)" Style="width: 2rem; height: 2rem;"
+                        FontStyle="fs-6" />
+
+                        <h6 class="ms-2 mt-1">@comment.Creator</h6>
+
+                        <p class="ms-2 mt-1" style="opacity:0.5;font-size:0.8rem;">@comment.Date</p>
+
+                    </div>
+                    <div class="d-flex justify-content-start">
+
+                        <p class="ms-2">@comment.Body</p>
+
+                    </div>
+
+                </div>
+
+            </Virtualize>
+        </div>
+    }
+
+</center>

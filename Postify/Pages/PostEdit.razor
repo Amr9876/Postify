@@ -1,0 +1,101 @@
+﻿@page "/post/edit/{Id}"
+@inject PostsService Posts
+@inject NavigationManager NavManager
+
+<center>
+
+    <div class="shadow bg-dark p-4">
+
+        <h1>Update @request.Title</h1>
+
+        <EditForm Model="request" OnValidSubmit="SubmitHandler">
+
+            <div class="mb-3">
+
+                <div class="d-flex justify-content-start">
+                    <label class="form-label">Title</label>
+                </div>
+
+                <InputText @bind-Value="request.Title" class="form-control" />
+
+                <div class="mt-3 d-flex justify-content-start">
+                    <ValidationMessage For="() => request.Title" />
+                </div>
+
+
+            </div>
+
+            <div class="mb-3">
+
+                <div class="d-flex justify-content-start">
+                    <label class="form-label">Image URL</label>
+                </div>
+
+                <InputText @bind-Value="request.ImageUrl" class="form-control" />
+
+                <div class="mt-3 d-flex justify-content-start">
+                    <ValidationMessage For="() => request.ImageUrl" />
+                </div>
+
+
+            </div>
+
+            <div class="mb-3">
+
+                <div class="d-flex justify-content-start">
+                    <label class="form-label">Description</label>
+                </div>
+
+                <InputTextArea @bind-Value="request.Description" class="form-control" />
+
+                <div class="mt-3 d-flex justify-content-start">
+                    <ValidationMessage For="() => request.Description" />
+                </div>
+
+
+            </div>
+
+            <div class="mb-3 d-flex justify-content-start">
+
+                <button type="submit" class="btn btn-outline-warning w-25">Update</button>
+
+            </div>
+
+        </EditForm>
+
+    </div>
+
+</center>
+
+@code {
+
+    [Parameter] public string Id { get; set; } = string.Empty;
+
+    PostRequest request = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Id is null or "")
+            return;
+
+        var post = await Posts.GetPostAsync(Id);
+
+        request = new PostRequest
+        {
+            Title = post.Title,
+            ImageUrl = post.ImageUrl,
+            Description = post.Description
+        };
+    }
+
+    async Task SubmitHandler()
+    {
+        if (request is null)
+            return;
+
+        await Posts.EditPostAsync(Id, request);
+    
+        NavManager.NavigateTo("/", true);
+    }
+
+}

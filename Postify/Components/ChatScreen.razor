@@ -1,0 +1,60 @@
+﻿
+<div class="shadow bg-dark d-flex justify-content-start mb-4 p-2">
+
+    @if(!string.IsNullOrEmpty(user?.FirstName))
+    {
+        <Avatar Letter="@user?.FirstName.Substring(0, 1)" />
+    }
+
+    <h4 class="display-4 ms-3">@user?.FullName</h4>
+
+    <p class="mt-4 ms-4" style="opacity:0.3;">@user?.Email</p>
+
+</div>
+
+<div class="shadow bg-secondary p-2 h-50 overflow-scroll" style="width:100%;">
+
+    @if(messages is not null)
+    {
+        <Virtualize Items="messages" Context="msg">
+            
+            @if(msg.IsCurrentUser ? true : msg.FromUserId == Id)
+            {
+            
+                <div class="bg-dark p-1 w-50 mt-3 rounded @(msg.IsCurrentUser ? "ms-auto" : "ms-1")">
+                
+                    <div class="d-flex justify-content-start">
+
+                        <Avatar Letter="@msg.UserName.Substring(0, 1)"
+                                Style="width: 2rem; height: 2rem;"
+                                FontStyle="fs-5" />
+
+                        <p class="ms-2 mt-1 fs-6">@msg.UserName</p>
+
+                        <p class="mt-1" style="opacity:0.3; margin-left: 12rem;">@msg.Date</p>
+
+                    </div>
+
+                    <div class="ms-2">
+
+                        <h6 class="fs-5">@msg.Content</h6>
+
+                    </div>
+
+                </div>
+
+            }
+
+        </Virtualize>
+    }
+
+</div>
+
+<div class="d-flex justify-content-start mt-4 p-2">
+    <EditForm Model="inputMessage" OnValidSubmit="SendAsync" class="d-flex justify-content-start" style="width: 100%;">
+        <InputText @bind-Value="inputMessage" class="form-control" />
+
+        <button type="submit" class="btn btn-outline-primary ms-4" disabled="@(!isConnected)">Send</button>
+    </EditForm>
+
+</div>

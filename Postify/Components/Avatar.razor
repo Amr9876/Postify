@@ -1,0 +1,13 @@
+<div class="rounded-5 bg-secondary" style="@Style">
+    <p class="text-center mt-1 @FontStyle">@Letter</p>
+</div>
+
+@code {
+
+    [Parameter] public string Letter { get; set; } = string.Empty;
+
+    [Parameter] public string Style { get; set; } = "width: 4rem; height: 4rem;";
+
+    [Parameter] public string FontStyle { get; set; } = "fs-1";
+
+}

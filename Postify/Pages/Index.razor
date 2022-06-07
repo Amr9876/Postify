@@ -1,0 +1,35 @@
+﻿@page "/"
+@inject AuthenticationStateProvider AuthStateProvider
+
+<AuthorizeView>
+
+    <Authorized>
+
+        <div class="shadow bg-dark p-4">
+            <Jumbotron UserName="@context!.User!.Identity!.Name" 
+                       Id="@id" />
+        </div>
+
+        <div class="p-3 mt-5">
+            <center>
+                <PostsList />
+            </center>
+        </div>
+
+    </Authorized>
+
+</AuthorizeView>
+
+@code {
+
+    string id = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+
+        id = authState!.User!.FindFirstValue(ClaimTypes.NameIdentifier);
+
+    }
+
+}

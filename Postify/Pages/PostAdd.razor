@@ -1,0 +1,85 @@
+﻿@page "/post/add"
+@inject PostsService Posts
+@inject NavigationManager NavManager
+
+<center>
+
+    <div class="shadow bg-dark p-4">
+
+        <h1>Add Post</h1>
+
+        <EditForm Model="request" OnValidSubmit="SubmitHandler">
+
+            <div class="mb-3">
+
+                <div class="d-flex justify-content-start">
+                    <label class="form-label">Title</label>
+                </div>
+
+                <InputText @bind-Value="request.Title" class="form-control" />
+
+                <div class="mt-3 d-flex justify-content-start">
+                    <ValidationMessage For="() => request.Title" />
+                </div>
+
+
+            </div>
+
+            <div class="mb-3">
+
+                <div class="d-flex justify-content-start">
+                    <label class="form-label">Image URL</label>
+                </div>
+
+                <InputText @bind-Value="request.ImageUrl" class="form-control" />
+
+                <div class="mt-3 d-flex justify-content-start">
+                    <ValidationMessage For="() => request.ImageUrl" />
+                </div>
+
+
+            </div>
+
+            <div class="mb-3">
+
+                <div class="d-flex justify-content-start">
+                    <label class="form-label">Description</label>
+                </div>
+
+                <InputTextArea @bind-Value="request.Description" class="form-control" />
+
+                <div class="mt-3 d-flex justify-content-start">
+                    <ValidationMessage For="() => request.Description" />
+                </div>
+
+
+            </div>
+
+            <div class="mb-3 d-flex justify-content-start">
+
+                <button type="submit" class="btn btn-outline-success w-25">Add</button>
+
+            </div>
+
+        </EditForm>
+
+    </div>
+
+</center>
+
+
+
+@code {
+
+    PostRequest request = new();
+
+    async Task SubmitHandler()
+    {
+
+        await Posts.AddPostAsync(request);
+
+        NavManager.NavigateTo("/", true);
+
+    }
+
+}

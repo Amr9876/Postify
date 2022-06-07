@@ -1,0 +1,36 @@
+@inject AuthService AuthenticationService
+@inject NavigationManager NavManager
+
+<AuthorizeView>
+
+    <Authorized>
+
+            <p class="me-3 mt-3 text-opacity-75">@context?.User?.Identity?.Name</p>
+
+            <button class="btn btn-danger" @onclick="Logout">Logout</button>
+
+    </Authorized>
+
+    <NotAuthorized>
+
+        <ul class="navbar-nav">
+            <NavButton Href="/login">Login</NavButton>    
+            <NavButton Href="/signup">Sign Up</NavButton>
+        </ul>
+
+    </NotAuthorized>
+
+</AuthorizeView>
+
+@code {
+
+    async Task Logout()
+    {
+
+        await AuthenticationService.LogoutAsync();
+
+        NavManager.NavigateTo("/", true);
+
+    }
+
+}

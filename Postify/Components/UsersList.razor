@@ -1,0 +1,22 @@
+﻿
+<div class="shadow bg-secondary p-2 overflow-scroll" style="height: 61%;">
+
+    @if(users is not null)
+    {
+        <Virtualize Items="users" Context="user">
+    
+            <button @onclick="() => NavigateToChatRoom(user.Id)" class="d-flex justify-content-start bg-dark shadow p-1 mt-3" 
+               style="text-decoration-line: none; color: #eee;">
+
+                <Avatar Letter="@user.FirstName.Substring(0, 1)"
+                        Style="width: 2rem; height: 2rem;"
+                        FontStyle="fs-5" />
+
+                <h6 class="display-6 fs-5 ms-3 mt-1">@user.FullName</h6>
+
+            </button>
+
+        </Virtualize>
+    }
+
+</div>
